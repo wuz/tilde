@@ -1,0 +1,17 @@
+WHITESPACE = _{ " " | "\t" }
+char = { ASCII_ALPHANUMERIC | "." | "_" | "/" | " " }
+string = { char+ }
+
+heading = { "#"{1, 6} ~ string }
+quote = { (">" ~ string ~ "\n")+ }
+newline = { NEWLINE } 
+
+expr = {
+    heading
+  | quote
+  | newline
+}
+
+stmt = _{ expr }
+
+file = _ { SOI ~ "\n"* ~ stmt* ~ EOI }
